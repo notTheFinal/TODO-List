@@ -9,6 +9,8 @@ import UIKit
 
 class TaskListTVC: UITableViewController {
 
+    var vc = TaskVC()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -26,6 +28,9 @@ class TaskListTVC: UITableViewController {
     }
 
     @IBAction func showTaskVC(_ sender: Any) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        vc = storyboard.instantiateViewController(withIdentifier: "TaskVC") as! TaskVC
+        present(vc, animated: true, completion: nil)
     }
     
 
