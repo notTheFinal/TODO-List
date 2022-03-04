@@ -12,6 +12,16 @@ class TaskCell: UITableViewCell {
 
     @IBOutlet weak var viewCell: UIView!
     @IBOutlet weak var someTask: UILabel!
+    weak var removeTaskDelegate: RemoveTaskDelegate?
+    weak var taskCompletedDelegate: TaskCompletedDelegate?
+    
+    var task: TaskModel?
+    
+    func cellData(task: TaskModel) {
+        someTask.text = task.taskName
+        viewCell.backgroundColor = task.taskCellColor
+        self.task = task
+      }
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -24,9 +34,13 @@ class TaskCell: UITableViewCell {
         // Configure the view for the selected state
     }
     @IBAction func executeTaskBtnPressed(_ sender: Any) {
+        guard let task = task else {return}
+        taskCompletedDelegate?.taskComplet(task: task)
     }
     
     @IBAction func removeTaskBtnPressed(_ sender: Any) {
+        guard let task = task else {return}
+        removeTaskDelegate?.removeTask(task: task)
     }
     
 }

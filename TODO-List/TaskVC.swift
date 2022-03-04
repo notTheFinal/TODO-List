@@ -10,6 +10,8 @@ import UIKit
 class TaskVC: UIViewController {
 
     @IBOutlet weak var userTaskField: UITextField!
+
+    weak var saveTaskDelegate: SaveUserTaskDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -18,6 +20,13 @@ class TaskVC: UIViewController {
     }
     
     @IBAction func saveTaskBtnPressed(_ sender: Any) {
+        if let task = userTaskField.text {
+            if !task.isEmpty {
+                let task = TaskModel(taskName: task, taskCellColor: .white)
+                saveTaskDelegate?.saveTask(task: task)
+                dismiss(animated: true, completion: nil)
+            }
+        }
     }
     
 }
